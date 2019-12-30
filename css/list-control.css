@@ -1,0 +1,29 @@
+.list-control {
+	border: solid 0px #0f0;
+	overflow: auto;
+}
+
+.list-control .list-control-entry {
+	width: 100%;
+	background-color: #ffffff;
+	border-bottom: solid 1px #F0F0F0;
+	padding-top: 2px;
+	padding-bottom: 2px;
+}
+
+.list-control .highlighted-entry {
+	background-color: #ffffff;
+}
+
+.list-control .selected-entry {
+	background-color: #ffffff;
+}
+
+.simple-action-list-control {
+	border: solid 0px #00f;
+}
+
+.simple-action-list-control .simple-list-control-entry {
+	float: left;
+	border: solid 0px #0f0;
+}

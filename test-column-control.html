@@ -1,0 +1,65 @@
+<!DOCTYPE HTML>
+
+<html>
+<head>
+<title>test column control</title>
+
+<style type="text/css"/>
+<!--
+@import url("css/task-board.css");
+@import url("css/list-control.css");
+@import url("css/panel-control.css");
+-->
+</style>
+
+<script type="text/javascript" src="js/jquery-1.6.4.js"></script>
+<script type="text/javascript" src="js/jquery-ui-1.8.16.custom.min.js"></script>
+
+<script type="text/javascript" src="js/dkg-ui.min.js"></script>
+
+<script type="text/javascript" src="js/task-control.js"></script>
+<script type="text/javascript" src="js/column-control.js"></script>
+
+<script type="text/javascript">
+var cc;
+var cm;
+var tc;
+
+function testTC() {
+	var ti;
+	
+	ti = {desc: "test desc", issueNumber: "1234", assignedTo: "Dennis"};
+	tc = new TB.TaskControl(ti);
+	$("#taskboard").append(tc.getControlElement());
+}
+
+function testCC() {
+	var ol;
+
+	ol = new DKG_UI.ObservableList();
+	ol.add({taskId: 2, issueNumber: "1234", description: "test desc", assignedTo: "Dennis", columnIndex: 1, style: "note-style2"});
+	ol.add({taskId: 4, issueNumber: "2222", description: "guns and girls and ganja", assignedTo: "Spragga", columnIndex: 1, style: "note-style1"});
+	cm = new TB.ColumnModel("Analysis: Story", 3, ol, TB.TaskControl);
+	cc = new TB.ColumnControl(cm, 1, 400);
+
+	cc.getControlElement().css({
+		height: 590,
+		position: "absolute",
+		left: 0, 
+		top: 0
+	});
+
+	$("#taskboard").append(cc.getControlElement());
+}
+
+$(window).ready(function() {
+	testCC();
+});
+</script>
+</head>
+<body>
+
+<div id="taskboard"></div>
+
+</body>
+</html>

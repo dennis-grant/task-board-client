@@ -1,0 +1,82 @@
+<!DOCTYPE HTML>
+
+<html>
+<head>
+<title>test dragNdrop</title>
+
+<style type="text/css"/>
+<!--
+@import url("css/task-board.css");
+-->
+
+#wb {
+	border: solid 1px red;
+	width: 390px;
+	height: 550px;
+	background-color: #ffffff;
+}
+</style>
+
+<script type="text/javascript" src="js/jquery-1.6.4.js"></script>
+<script type="text/javascript" src="js/jquery-ui-1.8.16.custom.min.js"></script>
+<script type="text/javascript" src="js/dkg-ui.min.js"></script>
+<script type="text/javascript" src="js/task-control.js"></script>
+
+<script type="text/javascript">
+var tc;
+
+function upt(e) {
+	alert("updating: " + e.task.issueNumber);
+}
+
+function dsh(e) {
+	//alert("hi");
+	//e.originalEvent.dataTransfer("text", "blah");
+	//e.originalEvent.dataTransfer.setData("text", self.taskInfo.taskId);
+	e.dataTransfer.setData("text", "blah");
+}
+
+$(window).ready(function() {
+	tc = new TB.TaskControl(
+		{taskId: 1, issueNumber: "1234", description: "Test Desc", assignedTo: "Steve", columnIndex: 1, style: "note-style1"},
+		300
+	);
+	tc.bind("UpdateTask", upt);
+	$("#taskboard").append(tc.getControlElement());
+	ModeSelector.mixin($("#ftc"));
+	//$("#ftc").bind("dragstart", dsh);
+});
+</script>
+</head>
+<body>
+
+<div class="board" id="taskboard">
+
+	<div id='ftc' draggable='true' ondragstart='dsh(event)' class='task-control note-style2' style='width: 284px; height: 184px;'>
+		<div class='head'>
+			<div mode='__default__,mouse-in-header' class='title'>LPAD-1111</div>
+			<div mode='mouse-in-header' class='buttons1'>
+				<img src='images/edit.gif' action='edit'>
+				<img src='images/delete.gif' action='delete'>
+				<img src='images/left.gif' action='move-left'>
+				<img src='images/right.gif' action='move-right'>
+			</div>
+			<div mode='editing' class='buttons2'>
+				<img src='images/save.gif' action='update'>
+				<img src='images/cancel.gif' action='cancel'>
+			</div>
+		</div>
+		<div mode='__default__,mouse-in-header' class='desc'>yellow description</div>
+		<div mode='__default__,mouse-in-header' class='assigned-to'>Becky</div>
+	</div>
+
+</div>
+
+<!--
+<div draggable="true" style="position: relative; width: 100px; height: 100px; background-color: #0000ff;" ondragstart="dsh(event)">abab</div>
+
+<div style="width: 200px; height: 200px; background-color: #ff0000;">reda</div>
+-->
+
+</body>
+</html>

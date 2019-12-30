@@ -1,0 +1,75 @@
+<!DOCTYPE HTML>
+
+<html>
+<head>
+<title>task board</title>
+
+<style type="text/css"/>
+<!--
+@import url("css/task-board.css");
+@import url("css/list-control.css");
+@import url("css/panel-control.css");
+-->
+</style>
+
+<script type="text/javascript" src="js/jquery-1.6.4.js"></script>
+<script type="text/javascript" src="js/jquery-ui-1.8.16.custom.min.js"></script>
+<script type="text/javascript" src="js/dkg-ui.min.js"></script>
+
+<script type="text/javascript" src="js/task-board-service.js"></script>
+<script type="text/javascript" src="js/task-board-controller.js"></script>
+<script type="text/javascript" src="js/task-control.js"></script>
+<script type="text/javascript" src="js/column-control.js"></script>
+<script type="text/javascript" src="js/board-control.js"></script>
+<script type="text/javascript" src="js/app.js"></script>
+
+<script type="text/javascript">
+var TAG = "global";
+var SERVER_URL = "http://localhost:8080/taskboard/server";
+var TOGGLE_STYLE_MAP = {
+	"note-style1": "note-style2",
+	"note-style2": "note-style3",
+	"note-style3": "note-style4",
+	"note-style4": "note-style5",
+	"note-style5": "note-style6",
+	"note-style6": "note-style1"
+};
+var BOARD_WIDTH = 1800;
+var BOARD_HEIGHT = 800;
+
+var app;
+
+
+function newTask() {
+	app.newTask($(this).attr("ns"));
+}
+
+function taskTitleClicked(issueNumber) {
+	alert("TODO: show issue details for: " + issueNumber);
+}
+
+$(window).ready(function() {
+	$("#tag").append(TAG);
+	app = new TB.App(BOARD_WIDTH, BOARD_HEIGHT, SERVER_URL, TOGGLE_STYLE_MAP, TAG);
+	$("#main-panel").append(app.view.board.getControlElement());
+	$(".newtask-buttons button").bind("click", newTask);
+});
+</script>
+</head>
+<body>
+
+<div id="tag"></div>
+
+<div id="main-panel">
+	<div class="newtask-buttons">
+		<button ns="note-style1" style="background-color: #70A6FF;">DESIGN</button>
+		<button ns="note-style2" style="background-color: #FDEE00;">FRONT-E</button>
+		<button ns="note-style3" style="background-color: #FF033E;">BACK-E</button>
+		<button ns="note-style4" style="background-color: #8DB600;">RESRCH</button>
+		<button ns="note-style5" style="background-color: #915C83;">TRAIN</button>
+		<button ns="note-style6" style="background-color: #D2691E;">MISC</button>
+	</div>
+</div>
+
+</body>
+</html>

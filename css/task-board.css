@@ -1,0 +1,239 @@
+body {
+	background-color: #E3F1F6;
+	font-family: verdana;
+}
+
+[draggable=true] {
+  -khtml-user-drag: element;
+}
+
+#tag {
+	font-size: 20px;
+	font-weight: bold;
+	margin-top: 5px;
+	margin-bottom: 10px;
+}
+
+#main-panel {
+	padding: 0px;
+	position: relative;
+}
+
+.newtask-buttons {
+	border: 0px;
+	width: 80px;
+	margin-left: 10px;
+	margin-right: 10px;
+	position: absolute;
+	left: 0px;
+	top: 0px;
+}
+
+.newtask-buttons button {
+	display: block;
+	width: 100%;
+	height: 50px;
+	margin-bottom: 10px;
+	border: 0px;
+	cursor: pointer;
+}
+
+.board-control {
+	background-color: #ffffff;
+	position: absolute;
+	left: 100px;
+	top: 0px;
+	border: solid 0px green;
+	z-index: 1;
+}
+
+.task-control {
+	position: relative;
+	margin: 8px;
+}
+
+.task-control .head, .task-control .desc, .task-control .desc-container, .task-control .assigned-to, .task-control .assigned-to-input {
+	position: absolute;
+	left: 2px;
+	right: 2px;
+}
+
+.task-control .head {
+	top: 2px;
+	height: 20px;
+}
+
+.task-control .head .title, .task-control .head .title-input {
+	float: left;
+	width: 100px;
+	font-size: 14px;
+}
+
+.task-control .head .title {
+	cursor: pointer;
+	font-weight: bold;
+	padding-left: 2px;
+}
+
+.task-control .head .title-input {
+	height: 16px;
+	margin: 0px;
+	font-weight: normal;
+	border: solid 1px #000000;
+}
+
+.task-control .head .buttons1, .task-control .head .buttons2 {
+	padding: 2px;
+	float: right;
+}
+
+.task-control .head img {
+	display: block;
+	float: left;
+	width: 14px;
+	height: 14px;
+	margin-left: 2px;
+	cursor: pointer;
+}
+
+
+
+.task-control .desc, .task-control .desc-container {
+	top: 22px;
+	bottom: 20px;
+	font-size: 12px;
+}
+
+.task-control .desc {
+	padding-top: 5px;
+	padding-bottom: 5px;
+	line-height: 135%;
+	overflow: hidden;
+}
+
+.task-control .desc-container {
+	border: solid 1px #000000;
+}
+
+.task-control .desc-container .desc-input {
+	padding: 0px;
+	margin: 0px;
+	width: 100%;
+	height: 100%;
+	border: 0px;
+	overflow-y: hidden;
+}
+
+
+
+.task-control .assigned-to, .task-control .assigned-to-input {
+	bottom: 0px;
+}
+
+.task-control .assigned-to {
+	height: 20px;
+}
+
+.task-control .assigned-to-input {
+	font-weight: normal;
+	height: 16px;
+	margin: 0px;
+	border: solid 1px #000000;
+}
+
+
+
+/* note style1 */
+.note-style1 {
+	background-color: #70A6FF;
+	color: #000000;
+}
+
+.note-style1 .head {
+	background-color: #727EFF;
+}
+
+.note-style1 input, .note-style1 textarea {
+	background-color: #70A6FF;
+	color: #000000;
+}
+
+
+/* note style2 */
+.note-style2 {
+	background-color: #FDEE00;
+	color: #000000;
+}
+
+.note-style2 .head {
+	background-color: #FFBF00;
+}
+
+.note-style2 input, .note-style2 textarea {
+	background-color: #FDEE00;
+	color: #000000;
+}
+
+
+/* note style3 */
+.note-style3 {
+	background-color: #FF033E;
+	color: #000000;
+}
+
+.note-style3 .head {
+	background-color: #E32636;
+}
+
+.note-style3 input, .note-style3 textarea {
+	background-color: #FF033E;
+	color: #000000;
+}
+
+
+/* note style4 */
+.note-style4 {
+	background-color: #8DB600;
+	color: #000000;
+}
+
+.note-style4 .head {
+	background-color: #008000;
+}
+
+.note-style4 input, .note-style4 textarea {
+	background-color: #8DB600;
+	color: #000000;
+}
+
+
+/* note style5 */
+.note-style5 {
+	background-color: #9966CC;
+	color: #000000;
+}
+
+.note-style5 .head {
+	background-color: #8B008B;
+}
+
+.note-style5 input, .note-style5 textarea {
+	background-color: #915C83;
+	color: #000000;
+}
+
+
+/* note style6 */
+.note-style6 {
+	background-color: #D2691E;
+	color: #000000;
+}
+
+.note-style6 .head {
+	background-color: #7B3F00;
+}
+
+.note-style6 input, .note-style6 textarea {
+	background-color: #D2691E;
+	color: #000000;
+}

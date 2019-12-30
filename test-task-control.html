@@ -1,0 +1,40 @@
+<!DOCTYPE HTML>
+
+<html>
+<head>
+<title>test task control</title>
+
+<style type="text/css"/>
+<!--
+@import url("css/task-board.css");
+-->
+</style>
+
+<script type="text/javascript" src="js/jquery-1.6.4.js"></script>
+<script type="text/javascript" src="js/jquery-ui-1.8.16.custom.min.js"></script>
+<script type="text/javascript" src="js/dkg-ui.min.js"></script>
+<script type="text/javascript" src="js/task-control.js"></script>
+
+<script type="text/javascript">
+var tc;
+
+function upt(e) {
+	alert("updating: " + e.task.issueNumber);
+}
+
+$(window).ready(function() {
+	tc = new TB.TaskControl(
+		{taskId: 1, issueNumber: "1234", description: "Test Desc", assignedTo: "Steve", columnIndex: 1, style: "note-style1"},
+		300
+	);
+	tc.bind("UpdateTask", upt);
+	$("#taskboard").append(tc.getControlElement());
+});
+</script>
+</head>
+<body>
+
+<div class="board" id="taskboard" style="border: solid 1px red; width: 390px; height: 350px; background-color: #ffffff;"></div>
+
+</body>
+</html>
