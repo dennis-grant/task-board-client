@@ -38,7 +38,6 @@ var DKG_UI = (function(module) {
 }(DKG_UI || {}));
 
 
-
 var DKG_UI = (function(module) {
 	var EventBindable = module.EventBindable;
 
@@ -123,7 +122,6 @@ var DKG_UI = (function(module) {
 
 	return module;
 }(DKG_UI || {}));
-
 
 
 var DKG_UI = (function(module) {
@@ -388,7 +386,6 @@ var DKG_UI = (function(module) {
 }(DKG_UI || {}));
 
 
-
 var DKG_UI = (function(module) {
 	var Panel = function(_options) {
 		var self = this;
@@ -471,7 +468,6 @@ var DKG_UI = (function(module) {
 
 	return module;
 }(DKG_UI || {}));
-
 
 
 var ModeSelector = {
