@@ -387,6 +387,9 @@ var DKG_UI = (function(module) {
 
 
 var DKG_UI = (function(module) {
+	var EventBindable = module.EventBindable;
+	var ObservableList = module.ObservableList;
+
 	var Action = function(_label, _action, _icon) {
 		this.init = function() {
 			this.label = _label;
