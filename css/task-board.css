@@ -237,3 +237,17 @@ body {
 	background-color: #D2691E;
 	color: #000000;
 }
+
+
+.list-control {
+	border: solid 0px #0f0;
+	overflow: auto;
+}
+
+.list-control .highlighted-entry {
+	background-color: #ffffff;
+}
+
+.list-control .selected-entry {
+	background-color: #ffffff;
+}

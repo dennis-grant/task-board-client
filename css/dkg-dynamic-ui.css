@@ -1,7 +1,7 @@
 /******************** List ******************/
 .list-control {
-	border: solid 0px #0f0;
-	overflow: auto;
+	border: solid 1px #00f;
+	overflow: scroll;
 }
 
 .list-control .list-control-entry {
@@ -13,11 +13,12 @@
 }
 
 .list-control .highlighted-entry {
-	background-color: #ffffff;
+	background-color: #F4F7FC;
 }
 
 .list-control .selected-entry {
-	background-color: #ffffff;
+	background-color: #B3D7E3;
+	color: #333333;
 }
 
 .simple-action-list-control {
