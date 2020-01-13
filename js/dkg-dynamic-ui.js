@@ -387,6 +387,109 @@ var DKG_UI = (function(module) {
 
 
 var DKG_UI = (function(module) {
+	var Action = function(_label, _action, _icon) {
+		this.init = function() {
+			this.label = _label;
+			this.action = _action;
+			this.icon = _icon;
+		};
+
+		this.init();
+	};
+
+	var ActionControl = function(_action) {
+		var self = this;
+
+		this.init = function() {
+			this.action = _action;
+			this.createControlElement();
+			EventBindable.mixin(this, this.controlElement);
+		};
+
+		this.createControlElement = function() {
+			this.controlElement = $(this.toHTML());
+			this.controlElement.bind("click", this.clicked);
+		};
+
+		this.clicked = function() {
+			self.trigger({type: "actionPerformed", action: self.action.action});
+		};
+
+		this.getControlElement = function() {
+			return this.controlElement;
+		};
+
+		this.toHTML = function() {
+			var template;
+			var html;
+			var icon;
+
+			template = "<div class='action-control' action=':action:'>:icon:<div class='label'>:label:</div><div style='clear: both;'></div></div>";
+			if (this.action.icon !== undefined && this.action.icon !== "") {
+				icon = "<img class='icon' src='" + this.action.icon + "'>";
+			}
+			else {
+				icon = "";
+			}
+			html = template
+				.replace(/:action:/g, this.action.action)
+				.replace(/:icon:/g, icon)
+				.replace(/:label:/g, this.action.label);
+
+			return html;
+		};
+
+		this.init();
+	};
+
+	var SimpleActionListControl = function(_model, _rendererClass) {
+		var self = this;
+
+		this.init = function() {
+			var tmpRendererControl;
+			var newWrappedElement;
+
+			this.model = _model;
+			this.rendererClass = _rendererClass;
+			this.rendererControls = new ObservableList();
+			this.createControlElement();
+
+			for (var i = 0; i < this.model.length(); i++) {
+				tmpRendererControl = new this.rendererClass(this.model.get(i));
+				newWrappedElement = $("<div class='simple-list-control-entry'></div>");
+				newWrappedElement.append(tmpRendererControl.getControlElement());
+				this.controlElement.append(newWrappedElement);
+				this.rendererControls.add(tmpRendererControl);
+			}
+			this.controlElement.append($("<div style='clear: both;'></div>"));
+
+			EventBindable.mixin(this, this.controlElement);
+		};
+
+		this.createControlElement = function() {
+			this.controlElement = $(this.toHTML());
+		};
+
+		this.getControlElement = function() {
+			return this.controlElement;
+		};
+
+		this.toHTML = function() {
+			return "<div class='simple-action-list-control'></div>";
+		};
+
+		this.init();
+	};
+
+	module.Action = Action;
+	module.ActionControl = ActionControl;
+	module.SimpleActionListControl = SimpleActionListControl;
+
+	return module;
+}(DKG_UI || {}));
+
+
+var DKG_UI = (function(module) {
 	var Panel = function(_options) {
 		var self = this;
 
@@ -470,123 +573,129 @@ var DKG_UI = (function(module) {
 }(DKG_UI || {}));
 
 
-var ModeSelector = {
-	DEFAULT_MODE: "__default__",
+var DKG_UI = (function(module) {
+	var ModeSelector = {
+		DEFAULT_MODE: "__default__",
 
-	DEFAULT_MODE_ATTR_NAME: "mode",
+		DEFAULT_MODE_ATTR_NAME: "mode",
 
-	MODE_CLASS_PAIR_PATTERN: /[^:]*:([^;]*);*/,
+		MODE_CLASS_PAIR_PATTERN: /[^:]*:([^;]*);*/,
 
-	mode: undefined,
+		mode: undefined,
 
-	modeOptions: {modeAttributeName: "mode", searchDepth: -1},
+		modeOptions: {modeAttributeName: "mode", searchDepth: -1},
 
-	getMode: function() {
-		return this.mode;
-	},
+		getMode: function() {
+			return this.mode;
+		},
 
-	setMode: function(_mode) {
-		var elemArr;
-		var modeSearchPattern;
-		var modeClassSearchPattern;
-		var elemModeClass;
+		setMode: function(_mode) {
+			var elemArr;
+			var modeSearchPattern;
+			var modeClassSearchPattern;
+			var elemModeClass;
 
-		if (_mode !== undefined && this.mode !== _mode) {
-			this.mode = _mode;
+			if (_mode !== undefined && this.mode !== _mode) {
+				this.mode = _mode;
 
-			modeSearchPattern = new RegExp(
-				"^" + this.mode + "$|" +
-				"^" + this.mode + ",|" +
-				"," + this.mode + ",|" +
-				"," + this.mode + "$"
-			);
-			modeClassSearchPattern = new RegExp(
-				"^" + this.mode + ":[^;]*$|" +
-				"^" + this.mode + ":[^;]*;|" +
-				";" + this.mode + ":[^;]*;|" +
-				";" + this.mode + ":[^;]*$"
-			);
+				modeSearchPattern = new RegExp(
+					"^" + this.mode + "$|" +
+					"^" + this.mode + ",|" +
+					"," + this.mode + ",|" +
+					"," + this.mode + "$"
+				);
+				modeClassSearchPattern = new RegExp(
+					"^" + this.mode + ":[^;]*$|" +
+					"^" + this.mode + ":[^;]*;|" +
+					";" + this.mode + ":[^;]*;|" +
+					";" + this.mode + ":[^;]*$"
+				);
 
-			elemArr = $(this).find("*[mode],*[mode_class]");
-			for (var i = 0; i < elemArr.length; i++) {
-				this.toggleElement(elemArr[i], modeSearchPattern);
-				elemModeClass = $(elemArr[i]).attr("mode_class");
-				if (elemModeClass !== undefined && elemModeClass !== "") {
-					this.setElementClass(elemArr[i], modeClassSearchPattern);
+				elemArr = $(this).find("*[mode],*[mode_class]");
+				for (var i = 0; i < elemArr.length; i++) {
+					this.toggleElement(elemArr[i], modeSearchPattern);
+					elemModeClass = $(elemArr[i]).attr("mode_class");
+					if (elemModeClass !== undefined && elemModeClass !== "") {
+						this.setElementClass(elemArr[i], modeClassSearchPattern);
+					}
 				}
 			}
-		}
-	},
+		},
 
-	toggleElement: function(elem, modeSearchPattern) {
-		var elemMode;
+		toggleElement: function(elem, modeSearchPattern) {
+			var elemMode;
 
-		// hide/show element based on its modes
-		elemMode = $(elem).attr("mode");
-		if (elemMode !== undefined && elemMode !== "") {
-			if (modeSearchPattern.test(elemMode) === true) {
-				$(elem).show();
-			}
-			else {
-				$(elem).hide();
-			}
-		}
-	},
-
-	setElementClass: function(elem, modeClassSearchPattern) {
-		var elemModeClass;
-		var matchResults;
-		var modeClassMatchStr;
-		var tmpClass;
-
-		// change class attribute element based on its modeClasses
-		if (this.mode === this.DEFAULT_MODE) {
-			tmpClass = $(elem).attr("defaultClass");
-			$(elem).removeClass().addClass(tmpClass);
-		}
-		else {
-			elemModeClass = $(elem).attr("mode_class");
-			if (elemModeClass !== undefined && elemModeClass !== "") {
-				matchResults = elemModeClass.match(modeClassSearchPattern);
-				if (matchResults !== null) {
-					modeClassMatchStr = matchResults[0];
-					matchResults = modeClassMatchStr.match(this.MODE_CLASS_PAIR_PATTERN);
-					tmpClass = matchResults[1];
+			// hide/show element based on its modes
+			elemMode = $(elem).attr("mode");
+			if (elemMode !== undefined && elemMode !== "") {
+				if (modeSearchPattern.test(elemMode) === true) {
+					$(elem).show();
 				}
 				else {
-					tmpClass = $(elem).attr("defaultClass");
+					$(elem).hide();
 				}
+			}
+		},
+
+		setElementClass: function(elem, modeClassSearchPattern) {
+			var elemModeClass;
+			var matchResults;
+			var modeClassMatchStr;
+			var tmpClass;
+
+			// change class attribute element based on its modeClasses
+			if (this.mode === this.DEFAULT_MODE) {
+				tmpClass = $(elem).attr("defaultClass");
 				$(elem).removeClass().addClass(tmpClass);
 			}
-		}
-	},
-
-	saveDefaultClass: function() {
-		$(this).find("*[mode_class]").each(function(index, elem) {
-			$(elem).attr("defaultClass", $(elem).attr("class"));
-		});
-	},
-
-	resetMode: function() {
-		this.setMode(this.DEFAULT_MODE);
-	},
-
-	setOptions: function(_options) {
-		if (_options !== undefined) {
-			for (var opt in _options) {
-				this.modeOptions[opt] = _options[opt];
+			else {
+				elemModeClass = $(elem).attr("mode_class");
+				if (elemModeClass !== undefined && elemModeClass !== "") {
+					matchResults = elemModeClass.match(modeClassSearchPattern);
+					if (matchResults !== null) {
+						modeClassMatchStr = matchResults[0];
+						matchResults = modeClassMatchStr.match(this.MODE_CLASS_PAIR_PATTERN);
+						tmpClass = matchResults[1];
+					}
+					else {
+						tmpClass = $(elem).attr("defaultClass");
+					}
+					$(elem).removeClass().addClass(tmpClass);
+				}
 			}
-		}
-	},
+		},
 
-	mixin: function(targetElement) {
-		for (var prop in ModeSelector) {
-			if (prop == "mixin") {
-				continue;
+		saveDefaultClass: function() {
+			$(this).find("*[mode_class]").each(function(index, elem) {
+				$(elem).attr("defaultClass", $(elem).attr("class"));
+			});
+		},
+
+		resetMode: function() {
+			this.setMode(this.DEFAULT_MODE);
+		},
+
+		setOptions: function(_options) {
+			if (_options !== undefined) {
+				for (var opt in _options) {
+					this.modeOptions[opt] = _options[opt];
+				}
 			}
-			targetElement[prop] = ModeSelector[prop];
+		},
+
+		mixin: function(targetElement) {
+			for (var prop in ModeSelector) {
+				if (prop == "mixin") {
+					continue;
+				}
+				targetElement[prop] = ModeSelector[prop];
+			}
+			targetElement.saveDefaultClass();
+			targetElement.resetMode();
 		}
-		targetElement.saveDefaultClass();
-		targetElement.resetMode();
-	}
-}
+	};
+
+	module.ModeSelector = ModeSelector;
+
+	return module;
+}(DKG_UI || {}));

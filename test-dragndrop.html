@@ -4,7 +4,7 @@
 <head>
 <title>test dragNdrop</title>
 
-<style type="text/css"/>
+<style type="text/css">
 <!--
 @import url("css/task-board.css");
 -->
@@ -19,7 +19,7 @@
 
 <script type="text/javascript" src="js/jquery-1.6.4.js"></script>
 <script type="text/javascript" src="js/jquery-ui-1.8.16.custom.min.js"></script>
-<script type="text/javascript" src="js/dkg-ui.min.js"></script>
+<script type="text/javascript" src="js/dkg-dynamic-ui.js"></script>
 <script type="text/javascript" src="js/task-control.js"></script>
 
 <script type="text/javascript">
@@ -43,7 +43,7 @@ $(window).ready(function() {
 	);
 	tc.bind("UpdateTask", upt);
 	$("#taskboard").append(tc.getControlElement());
-	ModeSelector.mixin($("#ftc"));
+	DKG_UI.ModeSelector.mixin($("#ftc"));
 	//$("#ftc").bind("dragstart", dsh);
 });
 </script>

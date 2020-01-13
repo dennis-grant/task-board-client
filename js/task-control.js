@@ -1,5 +1,6 @@
 var TB = (function(module) {
 	var EventBindable = DKG_UI.EventBindable;
+	var ModeSelector = DKG_UI.ModeSelector;
 
 	var TaskControl = function(_taskInfo, _width) {
 		var self = this;
