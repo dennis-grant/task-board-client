@@ -29,10 +29,6 @@
 	border: solid 0px #0f0;
 }
 
-.panel-control {
-	border: solid 1px #888888;
-}
-
 
 /******************** Action ******************/
 .action-control {
@@ -54,6 +50,10 @@
 
 
 /******************** Panel ******************/
+.panel-control {
+	border: solid 1px #888888;
+}
+
 .panel-control > .header {
 	vertical-align: middle;
 	color: #666666;
